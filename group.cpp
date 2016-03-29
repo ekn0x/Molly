@@ -17,7 +17,10 @@ group::group(std::string s)
 
 group::group(std::ifstream &src)
 {
+	//
+	// Example:
 	//G, 1, Alkali metals, 1,
+	//
 	std::string tmp;
 	// skip the G
 	src.seekg(2, std::ios_base::cur);
@@ -30,7 +33,7 @@ group::group(std::ifstream &src)
 	getline(src, tmp, ',');
 	this->Valence = stoi(tmp);
 	// change line;
-	src.seekg(2, std::ios_base::cur); // next value
+	src.seekg(2, std::ios_base::cur);
 }
 
 group::group(const group &src)
