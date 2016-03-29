@@ -1,5 +1,12 @@
 /**
- * \Brief 
+ * \Class group
+ * \Brief Chemical group
+ * 
+ * Provide a template for chemical group and their respective proprieties
+ * 
+ * \Author ekn0x
+ * \version 0.99
+ * 
  */
 #ifndef _GROUP_H_
 #define _GROUP_H_
@@ -45,7 +52,7 @@ public:
 	 */
 	group& group::operator = (const group&);
 
-  /**
+  	/**
 	 * \Brief return the name of the group
 	 * \Param None
 	 * \Return (std::string) name of the group
