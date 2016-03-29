@@ -1,3 +1,13 @@
+/**
+ * \Class pTable
+ * \Brief Provide a single instance of a periodic table
+ * 
+ * Provide an access to any element of the periodic table whereever 
+ * 
+ * \Author ekn0x
+ * \version 0.99
+ * 
+ */
 #ifndef _PTABLE_H_
 #define _PTABLE_H_
 
@@ -11,104 +21,92 @@ class element;
 class pTable
 {
 private:
-	bool INITIALIZED;
-	std::string Name;
-	std::string SrcName;
+	bool INITIALIZED;	//< State of the periodic table (initialized or not)
+	std::string Name;	//< Name of the periodic table
+	std::string SrcName;	//< Sourcefile
 
-	vect0r<group*> GList;
-	vect0r<element*> EList;
+	vect0r<group*> GList;	//< Array of the chemical group
+	vect0r<element*> EList;	//< Array of the chemical element
 
 protected:
-	/*
-	 * pTable()
-	 * \Purpose: default constructor
-	 * \Parameter: None
-	 * \return: None
+	/**
+	 * \Brief Default constructor
+	 * \Param None
+	 * \Return None
 	 */
 	pTable() : INITIALIZED(false) { };
 
 public:
-	/*
-	 * ~pTable()
-	 * \Purpose: deconstructor
-	 * \Parameter: None
-	 * \return: None
+	/**
+	 * \Brief deconstructor
+	 * \Param None
+	 * \Return None
 	 */
 	~pTable();
 
-	/*
-	 * getInstance()
-	 * \Purpose: Return the sole and only instance of the periodic table
-	 * \Parameter: None
-	 * \return: instance of the of the periodic table
+	/**
+	 * \Brief Return the sole and only instance of the periodic table
+	 * \Param None
+	 * \Return (pTable&) instance of the of the periodic table
 	 */
 	static pTable& getInstance();
 	/*
-	 * InitPTable(std::string)
-	 * \Purpose: Initializer of the periodic table
-	 * \Parameter: Name of the file
-	 * \return: true or false depending if the periodic table is initalized or not
+	 * \Brief Initializer of the periodic table
+	 * \Param (std::string) Name of the file
+	 * \Return (bool) If the periodic table was initalized or not
 	 */
 	bool initpTable(std::string);
 
 	/**
-	 * getName()
-	 * \Purpose: return the name of the periodic table
-	 * \Parameter: None
-	 * \return: std::string (the name of the periodic table)
+	 * \Brief return the name of the periodic table
+	 * \Param None
+	 * \Return (std::string) (the name of the periodic table)
 	 */
 	inline std::string getName() { return this->Name; };
 	/**
-	 * getName()
-	 * \Purpose: return if the periodic table is initialized or not
-	 * \Parameter: None
-	 * \return: bool (true if pt is initialized or false)
+	 * \Brief return if the periodic table is initialized or not
+	 * \Param None
+	 * \Return (bool) if the periodic is initialized or not
 	 */
 	inline bool getInitialized() { return this->INITIALIZED; };
 
-	/*
-	 * displayGroup()
-	 * \Purpose: Print out the periodic table
-	 * \Parameter: None
-	 * \return: None
+	/**
+	 * \Brief Print out the periodic table
+	 * \Param None
+	 * \Return None
 	 */
 	void displayGroup();
-	/*
-	 * findGroup(unsigned int)
-	 * \Purpose: To find a group within the periodic table
-	 * \Parameter: (unsigned int) id of the group
-	 * \return: pointer to the group or nullptr;
+	/**
+	 * \Brief To find a group within the periodic table
+	 * \Param (unsigned int) id of the group
+	 * \Return (group*) pointer to the group or nullptr;
 	 */
 	group* findGroup(unsigned int);
-	/*
-	* pTable(std::ifstream&)
-	* \Purpose: Constructor from file stream
-	* \Parameter: File stream
-	* \return: None
-	*/
-// bool removeGroup(Group*);
+	/**
+	 * \Brief Remove a group from the list
+	 * \Param (unsigned int) id of the group to be removed
+	 * \Return (bool) if the group was removed or not
+	 */
+// bool removeGroup(unsigned int);
 
-	/*
-	 * displayElement()
-	 * \Purpose: Show the list of all element
-	 * \Parameter: None
-	 * \return: None
+	/**
+	 * \Brief Print out all of the element
+	 * \Param None
+	 * \Return None
 	 */
 	void displayElement();
-	/*
-	 * pTable(std::ifstream&)
-	 * \Purpose: find an element within the array
-	 * \Parameter: (string) the symbol of the element
-	 * \return: (pointer) the correct element or nullptr
+	/**
+	 * \Brief Find an element based on it's symbol
+	 * \Param (std::string) the symbol of the element
+	 * \Return (element*) the element or nullptr
 	 */
 	element* FindElement(std::string);
 	/*
-	* pTable(std::ifstream&)
-	* \Purpose: Constructor from file stream
-	* \Parameter: File stream
-	* \return: None
-	*/
+	 * \Brief Remove an element from the list
+	 * \Param (std::string) symbol of the element 
+	 * \Return (bool) If the element was removed or not
+	 */
 //	bool removeElement(Element*);
 };
 
-#endif
+#endif // _PTABLE_H_
