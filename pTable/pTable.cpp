@@ -1,6 +1,6 @@
 #include "pTable.h"
-#include "/group/group.h"
-#include "/element/element.h"
+#include "./group/group.h"
+#include "./element/element.h"
 
 #include <iostream>
 #include <fstream>
