@@ -1,8 +1,8 @@
 #ifndef _ATOM_H_
 #define _ATOM_H_
 
-#include "element.h"
-#include "vect0r.h"
+#include "../../pTable/element/element.h"
+#include "../../vect0r.h"
 
 class element;
 class bond;
