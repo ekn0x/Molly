@@ -20,6 +20,7 @@ private:
 	bool Formula;		//< either true or false if the formula is up to date
 	std::string Formula;	//< Formula of the molecule
 
+	vect0r<vect0r<bond*>> Bonds; //< not working at the moment
 	vect0r<atom*> Atoms;	//< Array of atoms
 
 	//
@@ -71,11 +72,24 @@ public:
 	 */
 	void listAtom();
 	/**
-	 * \Purpose: add an atom to the molecule
-	 * \Parameters: Symbol of the element
-	 * \Returns: None
+	 * \Brief Add an atom to the molecule
+	 * \Param (std::string) Symbol of the element
+	 * \Return (bool) true if it works, false if it didn't
 	 */
 	bool insertAtom(std::string);
+	/**
+	 * \Brief Remove an atom from the molecule
+	 * \Param (unsigned int) Id of the atom
+	 * \Returns (bool) true if it works, false if it didn't
+	 */
+	bool removeAtom(std::string);
+	/**
+	 * \Brief Remove an atom from the molecule
+	 * \Param (unsigned int) Id of the atom
+	 * 	  (std::string) Symbol of the new element
+	 * \Returns (bool) true if it works, false if it didn't
+	 */
+	bool editAtom(unsigned int);
 	
 	//
 	// Bond related methods
@@ -84,22 +98,27 @@ public:
 	/**
 	 * \Brief Joint two atom
 	 * \Param The IDs of the atoms that need to be joint
-	 * \Return None
+	 * \Return (bool) true if it works, false if it didn't
 	 */
-	void insertBond(unsigned int, unsigned int);
-
+	bool insertBond(unsigned int, unsigned int);
 	/**
 	 * \Brief Remove a link that joint two atom together
 	 * \Param The IDs of the atoms.
-	 * \Return None
+	 * \Return (bool) true if it works, false if it didn't
 	 */
-	void removeBond(unsigned int, unsigned int);
+	bool removeBond(unsigned int, unsigned int);
 	/**
 	* \Brief Remove a link that joint two atom together
 	* \Param The id of the bond
-	* \Return None
+	* \Return (bool) true if it works, false if it didn't
 	*/
-	void removeBond(unsigned int);
+	bool removeBond(unsigned int);
+	/**
+	* \Brief force set the type of the bond (Covalent, Ionic or Metallic)
+	* \Param (bond::type) Type of the bond
+	* \Return (bool) true if it works, false if it didn't
+	*/
+	bool editBond(bond::type);
 
 	//
 	// General methods
@@ -111,7 +130,18 @@ public:
 	 * \Return None
 	 */
 	void display();
-
+	/**
+	 * \Brief Return the name of the molecule
+	 * \Param None
+	 * \Return (std::string) Name of the molecule
+	 */
+	inline std::string getName();
+	/**
+	 * \Brief Return the formula of the molecule
+	 * \Param None
+	 * \Return (std::string) Chemical formula
+	 */
+	inline std::string getFormula();
 };
 
 
