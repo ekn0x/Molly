@@ -16,8 +16,9 @@ class molecule
 private:
 	unsigned int b_id;	//< key increment for bonds
 	unsigned int a_id;	//< key increment for atoms
+	bool B_Name;		//< either true or false if the formula is up to date
 	std::string Name;	//< Name of the molecule
-	bool Formula;		//< either true or false if the formula is up to date
+	bool B_Formula;		//< either true or false if the formula is up to date
 	std::string Formula;	//< Formula of the molecule
 
 	vect0r<vect0r<bond*>> Bonds; //< not working at the moment
@@ -33,6 +34,12 @@ private:
 	 * \Return (unsigned int)
 	 */
 	unsigned int countAtoms(std::string)
+	/**
+	 * \Brief Auto define the formula of the molecule
+	 * \Param None
+	 * \Return None
+	 */
+	void autoDefineFormula();
 
 public:
 	/**
@@ -135,13 +142,19 @@ public:
 	 * \Param None
 	 * \Return (std::string) Name of the molecule
 	 */
-	inline std::string getName();
+	inline std::string getName() { return Name; };
 	/**
 	 * \Brief Return the formula of the molecule
 	 * \Param None
 	 * \Return (std::string) Chemical formula
 	 */
-	inline std::string getFormula();
+	inline std::string getFormula()
+	{
+		if(!B_Formula)
+			autoDefineFormula();
+		
+		return Formula;
+	}
 };
 
 
