@@ -1,4 +1,5 @@
 #include "molecule.h"
+#include "../vect0r.h"
 
 #include <iostream>
 #include <fstream>
@@ -9,32 +10,83 @@
  * \Param (std::string) Kind of element to count
  * \Return (unsigned int)
  */
-unsigned int countAtoms(std::string)
+unsigned int countAtoms(std::string str)
+{
+	int counter = 0;
+	element* e = pTable::getInstance().findElement(str);
+
+	if(e)
+	{
+		for (unsigned int i =0; i<Atoms.getSize(); ++i)
+		{
+			if(str.compare(atoms[i]->getElement()->getSymbol())==0)
+				++counter;
+		}
+	}
+	return counter;
+}
 /**
  * \Brief Auto define the formula of the molecule
  * \Param None
  * \Return None
  */
-void autoDefineFormula();
+void autoDefineFormula()
+{
+	element* e;
+	std::string symbol;
+	
+	vect0r<element*> eList;
+	// could potentially cause problems
+	vect0r<int> qtyElement;
+	
+	for(unsigned int i = 0; i < Atoms.getSize(); ++i)
+	{
+		e = Atoms[i]->getElement();
+		symbol = e->getSymbol();
+		if(!pTable::getInstance().findElement(symbol))
+		{
+			eList.Insert(e);
+			qtyElement.Insert(countAtoms(symbol));
+		}
+	}
+}
 
 /**
  * \Brief Basic constructor
  * \Param None
  * \Return: None
  */
-molecule();
+molecule() : 
+	b_id(0), a_id(0),
+	B_Name(false), B_Formula(false),
+	Name(""), Formula("")
+{
+	// nothing
+}
 /**
  * \Brief Constructor from file stream
  * \Param path to the file to open
  * \Return None
  */
-molecule(std::string);
+molecule(std::string) :
+	b_id(0), a_id(0),
+	B_Name(false), B_Formula(false),
+	Name(""), Formula("")
+{
+	// Open a file 
+	// Custom function to load information
+}
 /**
  * \Brief Destructor
   * \Param None
  * \Return None
  */
-~molecule();
+~molecule()
+{
+	// Clear arrays
+	Atoms.Clear();
+	Bonds.Clear();
+}
 
 //
 // Atom related methods
@@ -46,7 +98,13 @@ molecule(std::string);
  * 	  (unsigned int) level of entourage
  * \Return None
  */
-void displayAtom(unsigned int, unsigned int);
+void displayAtom(unsigned int, unsigned int)
+{
+	for (unsigned int i = 0; i < Atoms.getSize(); ++i)
+	{
+		Atoms[i]->display();
+	}
+}
 /**
  * \Brief List atoms in the molecule
  * \Param None
@@ -111,4 +169,10 @@ bool editBond(bond::type);
  * \Param None
  * \Return None
  */
-void display();
+void display()
+{
+	for (unsigned int i = 0; i < Atoms.getSize(); ++i)
+	{
+		Atoms[i]->display();
+	}
+}
