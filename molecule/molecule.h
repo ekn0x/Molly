@@ -33,7 +33,7 @@ private:
 	 * \Param (std::string) Kind of element to count
 	 * \Return (unsigned int)
 	 */
-	unsigned int countAtoms(std::fstream);
+	unsigned int countAtoms(std::string);
 	/**
 	 * \Brief Auto define the formula of the molecule
 	 * \Param None
