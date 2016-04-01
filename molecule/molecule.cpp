@@ -35,6 +35,7 @@ void autoDefineFormula()
 	element* e;
 	std::string symbol;
 	
+	// this vect0r do not own the object
 	vect0r<element*> eList;
 	// could potentially cause problems
 	vect0r<int> qtyElement;
@@ -84,8 +85,11 @@ molecule(std::string) :
 ~molecule()
 {
 	// Clear arrays
-	Atoms.Clear();
-	Bonds.Clear();
+	for (unsigned int i = 0; i<Atoms.getSize(); ++i)
+	{
+		delete Atoms[i];
+		Atoms[i] = nullptr;
+	}
 }
 
 //
@@ -98,31 +102,53 @@ molecule(std::string) :
  * 	  (unsigned int) level of entourage
  * \Return None
  */
-void displayAtom(unsigned int, unsigned int)
+void displayAtom(unsigned int id, unsigned int lvl)
 {
-	for (unsigned int i = 0; i < Atoms.getSize(); ++i)
+	int activeLevel =0;
+	do
 	{
-		Atoms[i]->display();
-	}
+		std::cout << "> Level of proximity : " << lvl << std::endl;
+	} while(activeLevel<lvl);
 }
 /**
  * \Brief List atoms in the molecule
  * \Param None
  * \Return None
  */
-void listAtom();
+void listAtom()
+{
+	std::cout << "> Atoms list" << std::endl;
+	std::cout << "> (Id) Element Name [symbol]" << std::endl;
+	for (unsigned int i = 0; i < Atoms.getSize(); ++i)
+	{
+		std::cout << "> (" << Atoms[i].getId() << ") " << Atoms[i].getElementName() 
+			<< " [" << Atoms[i].getElementSymbol() << "]" << std::endl;
+	}
+}
 /**
  * \Brief Add an atom to the molecule
  * \Param (std::string) Symbol of the element
  * \Return (bool) true if it works, false if it didn't
  */
-bool insertAtom(std::string);
+bool insertAtom(std::string sym)
+{
+	atom* a = new atom(sym);
+	if(a) // test if the element was found
+		Atoms.Insert(a);
+	else
+		return false;
+		
+	return true;
+}
 /**
  * \Brief Remove an atom from the molecule
  * \Param (unsigned int) Id of the atom
  * \Returns (bool) true if it works, false if it didn't
  */
-bool removeAtom(std::string);
+bool removeAtom(unsigned int id)
+{
+
+}
 /**
  * \Brief Remove an atom from the molecule
  * \Param (unsigned int) Id of the atom
